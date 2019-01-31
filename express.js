@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 // Enable the endpoint to serve the react app
 app.get('/', function (req, res) {
   // res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  res.send(JSON.stringify({ version: 1.1 }));
+  res.send(JSON.stringify({ newversion: 2.0 }));
 });
 
 // Start the server
