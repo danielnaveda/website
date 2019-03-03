@@ -6,6 +6,8 @@ COPY . /usr/src/app
 
 RUN npm install
 
+RUN npm run build
+
 EXPOSE 80
 
-ENTRYPOINT ["node", "express.js"]
+ENTRYPOINT ["node", "server/index.js"]
