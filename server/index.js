@@ -3,10 +3,29 @@ const path = require('path');
 const dgraph = require("dgraph-js-http");
 var proxy = require('http-proxy-middleware')
 
-// const clientStub = new dgraph.DgraphClientStub("http://localhost:8080");
-// const dgraphClient = new dgraph.DgraphClient(clientStub);
-// const schema = "name: string @index(exact) .";
-// dgraphClient.alter({ schema: schema });
+if (process.env.WEBSITE_ENV == 'production') {
+  console.log('We are in production');
+  config = {
+    dgraphServerUrl: "http://server:8080",
+    websitePort: 80,
+  };
+} else {
+  console.log('We are in development');
+  config = {
+    dgraphServerUrl: "http://localhost:8080",
+    websitePort: 8081,
+  };
+}
+
+const clientStub = new dgraph.DgraphClientStub(config.dgraphServerUrl);
+const dgraphClient = new dgraph.DgraphClient(clientStub);
+
+var fs = require('fs');
+var schema = fs.readFileSync(path.join(__dirname, 'dgraph', 'schema.dgraph'), "utf8");
+console.log(schema);
+
+dgraphClient.alter({ dropAll: true });
+dgraphClient.alter({ schema: schema });
 
 
 // Initialize the app
@@ -21,14 +40,13 @@ app.use(express.static(path.join(__dirname, '../', 'build')));
 
 app.use('/query', proxy(
   {
-    // target: 'http://localhost:8080',
-    target: 'http://server:8080',
+    target: config.dgraphServerUrl,
     changeOrigin: true,
     logLevel: 'debug'
   }
 ));
 
 // Start the server
-app.listen(80, () => {
-  console.log('Server is ready http://localhost:80/');
+app.listen(config.websitePort, () => {
+  console.log('Server is ready http://localhost:' + config.websitePort + '/');
 });
