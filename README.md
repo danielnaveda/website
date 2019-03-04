@@ -1,3 +1,10 @@
 # Website
 
-Project for testing...
+
+## Run locally
+```bash
+docker-compose up
+
+# In another terminal
+node server/index.js
+```
