@@ -7,7 +7,7 @@ var proxy = require('http-proxy-middleware')
 if (process.env.WEBSITE_ENV == 'production') {
   console.log('We are in production');
   config = {
-    dgraphServerUrl: "http://server:8080",
+    dgraphServerUrl: "http://dgraph:8080",
     websitePort: 80,
   };
 } else {
