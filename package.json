@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.4",
+    "graphql-request": "^1.8.2",
+    "http-proxy-middleware": "^0.19.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "react-scripts": "2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

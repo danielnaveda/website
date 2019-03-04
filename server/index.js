@@ -1,24 +1,33 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
-// const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+var proxy = require('http-proxy-middleware')
+
+// To send custom graphql request
+// const { request } = require('graphql-request');
+
+// const query = `{
+//   User {
+//     name
+//   }
+// }`
+
+// request('http://localhost:7474/graphql/', query).then(data =>
+//   console.log(data)
+// )
 
 // Initialize the app
 const app = express();
 
-// The GraphQL endpoint
-// app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-
-// GraphiQL, a visual editor for queries
-// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-
 // Use the react build folder to serve those static files
 app.use(express.static(path.join(__dirname, '../', 'build')));
 
-// API
-app.get('/api/rest/v1', function (req, res) {
-  res.send(JSON.stringify({ version: 3.0 }));
-});
+app.use('/graphql', proxy(
+  {
+    target: 'http://localhost:7474',
+    changeOrigin: true,
+    logLevel: 'debug'
+  }
+));
 
 // Start the server
 app.listen(80, () => {
