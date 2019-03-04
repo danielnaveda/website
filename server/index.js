@@ -3,6 +3,7 @@ const path = require('path');
 const dgraph = require("dgraph-js-http");
 var proxy = require('http-proxy-middleware')
 
+// TODO: dotenv instead? Pass the URL/Port as env variable?
 if (process.env.WEBSITE_ENV == 'production') {
   console.log('We are in production');
   config = {
