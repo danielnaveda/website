@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react"
+import ReactDOM from "react-dom"
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import ApiCall from './apicall'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+    <div>
+        <ApiCall endpoint="http://localhost:8081/endpoint/private" button="private"/>
+        <ApiCall endpoint="http://localhost:8081/endpoint/public"button="public"/>
+        <ApiCall endpoint="http://localhost:8081/login"button="login"/>
+    </div>
+    ,
+    document.getElementById("root")
+)
