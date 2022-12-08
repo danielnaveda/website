@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "dgraph-js-http": "^1.0.0-rc1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "http-proxy-middleware": "^0.19.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
